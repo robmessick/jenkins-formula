@@ -37,8 +37,10 @@ jenkins:
   {% endif %}
   pkg.latest:
     - refresh: True
+    {% if grains['os_family'] == 'RedHat' or grains['os_family'] == 'Debian' %}
     - require:
       - pkgrepo: jenkins
+    {% endif %}  
   service.running:
     - enable: True
     - watch:
